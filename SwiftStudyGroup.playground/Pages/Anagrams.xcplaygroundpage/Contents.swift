@@ -36,8 +36,8 @@ func checkWord(word: String, isAnagramofWord: String) -> Bool {
         let originalWordCharacterUnicodeIndex = unicodeIndexFromCharacter(originalWordCharacter)
         let comparedWordCharacterUnicodeIndex = unicodeIndexFromCharacter(comparedWordCharacter)
         
-        // This is so that we don't have to create a super big array and then loop through it all at the end. It's only 
-        // ever the largest size that we need. This means we can check as many unicode characters as possible.
+        // This is so that we don't have to create an unneccesarily large array, then loop through it all to do the 
+        // check at the end. It's only ever the size that we need.
         let maxIndex = max(originalWordCharacterUnicodeIndex, comparedWordCharacterUnicodeIndex)
         if  maxIndex > someInts.count - 1 {
             for _ in someInts.count...maxIndex {
