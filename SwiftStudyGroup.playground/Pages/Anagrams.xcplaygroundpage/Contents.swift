@@ -1,27 +1,85 @@
 //: [Previous](@previous)
+/*:
 
+# Anagrams
+An anagram is a type of word play, the result of rearranging the letters of a word or phrase to produce a new word or phrase, using all the original letters exactly once; for example, the word anagram can be rearranged into nag-a-ram.
+> [Source: Wikipedia](https://en.wikipedia.org/wiki/Anagram)
+*/
 import Foundation
 
+func unicodeIndexFromCharacter(character: Character) -> Int {
+    let originalWordCharacterScalar = String(character).unicodeScalars
+    let originalWordCharacterUnicodeIndex = originalWordCharacterScalar[originalWordCharacterScalar.startIndex].value
+    
+    return Int(originalWordCharacterUnicodeIndex)
+}
 
-func areWordsAnagrams(str: String, str2: String) -> Bool {
-    // strip the whitespace
-    let noWhitespaceString1 = str.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-    let noWhitespaceString2 = str2.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+func checkWord(word: String, isAnagramofWord: String) -> Bool {
+    // Strip the whitespace
+    let noWhitespaceOriginalString = word.stringByReplacingOccurrencesOfString(" ", withString: "").lowercaseString
+    let noWhitespaceComparisonString = isAnagramofWord.stringByReplacingOccurrencesOfString(" ", withString: "").lowercaseString
 
-    if str.characters.count != str2.characters.count {
+    if noWhitespaceOriginalString.characters.count != noWhitespaceComparisonString.characters.count {
         return false
     }
-
-    var someInts = [Int](count: 99999, repeatedValue: 0)
     
-    for index in 0...noWhitespaceString1.characters.count - 1 {
-        let firstHalfCharacter = noWhitespaceString1[advance(noWhitespaceString1.startIndex, index)]
+    if noWhitespaceOriginalString.characters.count == 0 {
+        return true
+    }
 
+    var someInts = [Int]()
+    
+    for index in 0...noWhitespaceOriginalString.characters.count - 1 {
+        let originalWordCharacter = noWhitespaceOriginalString[advance(noWhitespaceOriginalString.startIndex, index)]
+        let comparedWordCharacter = noWhitespaceComparisonString[advance(noWhitespaceComparisonString.startIndex, index)]
+
+        let originalWordCharacterUnicodeIndex = unicodeIndexFromCharacter(originalWordCharacter)
+        let comparedWordCharacterUnicodeIndex = unicodeIndexFromCharacter(comparedWordCharacter)
+        
+        // This is so that we don't have to create a super big array and then loop through it all at the end. It's only 
+        // ever the largest size that we need. This means we can check as many unicode characters as possible.
+        let maxIndex = max(originalWordCharacterUnicodeIndex, comparedWordCharacterUnicodeIndex)
+        if  maxIndex > someInts.count - 1 {
+            for _ in someInts.count...maxIndex {
+                someInts.append(0)
+            }
+        }
+        
+        someInts[originalWordCharacterUnicodeIndex]++
+        someInts[comparedWordCharacterUnicodeIndex]--
+    }
+    
+    for index in someInts {
+        if (index != 0) {
+            return false
+        }
     }
     return true
 }
+/*:
+## Tests
+The following lines test some anagrams and some strings that are not anagrams.
+*/
+checkWord("", isAnagramofWord: "")
+checkWord("a", isAnagramofWord: "a")
+checkWord("1", isAnagramofWord: "1")
 
-var str = "Hello, playground"
-var str2 = "Hello, playgroudn"
+checkWord("", isAnagramofWord: "a") == false
+checkWord("aa", isAnagramofWord: "a") == false
+checkWord("1", isAnagramofWord: "22") == false
 
-areWordsAnagrams(str, str2: str2)//: [Next](@next)
+checkWord("chris grant", isAnagramofWord: "char string")
+checkWord("chris grant", isAnagramofWord: "real nerd") == false
+
+checkWord("nag a ram", isAnagramofWord: "anagram")
+checkWord("Tom Cruise", isAnagramofWord: "So Im cuter")
+checkWord("Siobhan Donaghy", isAnagramofWord: "Shanghai Nobody")
+
+checkWord("22", isAnagramofWord: "1") == false
+checkWord("neatknob", isAnagramofWord: "banknote")
+
+checkWord("Bemoans Runts", isAnagramofWord: "Sam Burnstone")
+checkWord("A Mobsters Nun", isAnagramofWord: "Sam Burnstone")
+checkWord("Sunbeam Snort", isAnagramofWord: "Sam Burnstone")
+checkWord("A Numbers Snot", isAnagramofWord: "Sam Burnstone")
+//: [Next](@next)
