@@ -75,11 +75,15 @@ checkWord("nag a ram", isAnagramofWord: "anagram")
 checkWord("Tom Cruise", isAnagramofWord: "So Im cuter")
 checkWord("Siobhan Donaghy", isAnagramofWord: "Shanghai Nobody")
 
-checkWord("22", isAnagramofWord: "1") == false
 checkWord("neatknob", isAnagramofWord: "banknote")
 
 checkWord("Bemoans Runts", isAnagramofWord: "Sam Burnstone")
 checkWord("A Mobsters Nun", isAnagramofWord: "Sam Burnstone")
 checkWord("Sunbeam Snort", isAnagramofWord: "Sam Burnstone")
 checkWord("A Numbers Snot", isAnagramofWord: "Sam Burnstone")
+
+checkWord("Billing Report", isAnagramofWord: "Robert Pilling")
+checkWord("Probe Trilling", isAnagramofWord: "Robert Pilling")
+checkWord("Binge Rip Troll", isAnagramofWord: "Robert Pilling")
+checkWord("Giblet Rip Lorn", isAnagramofWord: "Robert Pilling")
 //: [Next](@next)
