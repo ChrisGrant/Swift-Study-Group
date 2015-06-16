@@ -27,7 +27,7 @@ func buildStringForIndicesUpTo(limit: Int, withFunctions: [(Int) -> String]) -> 
     return output
 }
 /*:
-This is a basic implementation which is quite easy to read and understand. It defines two functions called `fizz` and `buzz`, then calls `buildStringForIndicesUpTo:limit:functions`, using an array containing `fizz` and `buzz` as the functions parameter.
+This is a basic implementation which is quite easy to read and understand. It defines two functions called `fizz` and `buzz`, then calls `buildStringForIndicesUpTo:limit:withFunctions`, using an array containing `fizz` and `buzz` as the functions parameter.
 */
 func fizzBuzz() -> String {
     
@@ -59,7 +59,7 @@ The line below shows a much more concise way to do the same as the fizzBuzz meth
 */
 buildStringForIndicesUpTo(100, withFunctions: [{ $0 % 3 == 0 ? "Fizz" : ""}, { $0 % 5 == 0 ? "Buzz" : ""}])
 /*:
-And here is a daft illustration of how the `buildStringForIndicesUpTo:limit:functions` can be used in a different way, by examining a few scenarios if some members of the shinobi team were to get married. Interesting.
+And here is a daft illustration of how the `buildStringForIndicesUpTo:limit:withFunctions` can be used in a different way, by examining a few scenarios if some members of the shinobi team were to get married. Interesting.
 */
 buildStringForIndicesUpTo(3, withFunctions: [
     { $0 % 3 == 0 ? "Robert " : ""},
