@@ -14,10 +14,10 @@ func unicodeIndexFromCharacter(character: Character) -> Int {
     return Int(originalWordCharacterUnicodeIndex)
 }
 
-func checkWord(word: String, isAnagramofWord: String) -> Bool {
+func oldCheckWord(word: String, isAnagramOfWord: String) -> Bool {
     // Strip the whitespace
     let noWhitespaceOriginalString = word.stringByReplacingOccurrencesOfString(" ", withString: "").lowercaseString
-    let noWhitespaceComparisonString = isAnagramofWord.stringByReplacingOccurrencesOfString(" ", withString: "").lowercaseString
+    let noWhitespaceComparisonString = isAnagramOfWord.stringByReplacingOccurrencesOfString(" ", withString: "").lowercaseString
 
     if noWhitespaceOriginalString.characters.count != noWhitespaceComparisonString.characters.count {
         return false
@@ -56,34 +56,65 @@ func checkWord(word: String, isAnagramofWord: String) -> Bool {
     }
     return true
 }
+
+func checkWord(word: String, isAnagramOfWord: String) -> Bool {
+    let noWhitespaceOriginalString = word.stringByReplacingOccurrencesOfString(" ", withString: "").lowercaseString
+    let noWhitespaceComparisonString = isAnagramOfWord.stringByReplacingOccurrencesOfString(" ", withString: "").lowercaseString
+    
+    if noWhitespaceOriginalString.characters.count != noWhitespaceComparisonString.characters.count {
+        return false
+    }
+    
+    if noWhitespaceOriginalString.characters.count == 0 {
+        return true
+    }
+    
+    var dict = [Character: Int]()
+    
+    for index in 1...noWhitespaceOriginalString.characters.count {
+        let originalWordCharacter = noWhitespaceOriginalString[advance(noWhitespaceOriginalString.startIndex, index - 1)]
+        let comparedWordCharacter = noWhitespaceComparisonString[advance(noWhitespaceComparisonString.startIndex, index - 1)]
+        
+        dict[originalWordCharacter] = (dict[originalWordCharacter] ?? 0) + 1
+        dict[comparedWordCharacter] = (dict[comparedWordCharacter] ?? 0) - 1
+    }
+    
+    for key in dict.keys {
+        if (dict[key] != 0) {
+            return false
+        }
+    }
+    
+    return true
+}
 /*:
 ## Tests
 The following lines test some anagrams and some strings that are not anagrams.
 */
-checkWord("", isAnagramofWord: "")
-checkWord("a", isAnagramofWord: "a")
-checkWord("1", isAnagramofWord: "1")
+checkWord("", isAnagramOfWord: "")
+checkWord("a", isAnagramOfWord: "a")
+checkWord("1", isAnagramOfWord: "1")
 
-checkWord("", isAnagramofWord: "a") == false
-checkWord("aa", isAnagramofWord: "a") == false
-checkWord("1", isAnagramofWord: "22") == false
+checkWord("", isAnagramOfWord: "a") == false
+checkWord("aa", isAnagramOfWord: "a") == false
+checkWord("1", isAnagramOfWord: "22") == false
 
-checkWord("chris grant", isAnagramofWord: "char string")
-checkWord("chris grant", isAnagramofWord: "real nerd") == false
+checkWord("chris grant", isAnagramOfWord: "char string")
+checkWord("chris grant", isAnagramOfWord: "real nerd") == false
 
-checkWord("nag a ram", isAnagramofWord: "anagram")
-checkWord("Tom Cruise", isAnagramofWord: "So Im cuter")
-checkWord("Siobhan Donaghy", isAnagramofWord: "Shanghai Nobody")
+checkWord("nag a ram", isAnagramOfWord: "anagram")
+checkWord("Tom Cruise", isAnagramOfWord: "So Im cuter")
+checkWord("Siobhan Donaghy", isAnagramOfWord: "Shanghai Nobody")
 
-checkWord("neatknob", isAnagramofWord: "banknote")
+checkWord("neatknob", isAnagramOfWord: "banknote")
 
-checkWord("Bemoans Runts", isAnagramofWord: "Sam Burnstone")
-checkWord("A Mobsters Nun", isAnagramofWord: "Sam Burnstone")
-checkWord("Sunbeam Snort", isAnagramofWord: "Sam Burnstone")
-checkWord("A Numbers Snot", isAnagramofWord: "Sam Burnstone")
+checkWord("Bemoans Runts", isAnagramOfWord: "Sam Burnstone")
+checkWord("A Mobsters Nun", isAnagramOfWord: "Sam Burnstone")
+checkWord("Sunbeam Snort", isAnagramOfWord: "Sam Burnstone")
+checkWord("A Numbers Snot", isAnagramOfWord: "Sam Burnstone")
 
-checkWord("Billing Report", isAnagramofWord: "Robert Pilling")
-checkWord("Probe Trilling", isAnagramofWord: "Robert Pilling")
-checkWord("Binge Rip Troll", isAnagramofWord: "Robert Pilling")
-checkWord("Giblet Rip Lorn", isAnagramofWord: "Robert Pilling")
+checkWord("Billing Report", isAnagramOfWord: "Robert Pilling")
+checkWord("Probe Trilling", isAnagramOfWord: "Robert Pilling")
+checkWord("Binge Rip Troll", isAnagramOfWord: "Robert Pilling")
+checkWord("Giblet Rip Lorn", isAnagramOfWord: "Robert Pilling")
 //: [Next](@next)
