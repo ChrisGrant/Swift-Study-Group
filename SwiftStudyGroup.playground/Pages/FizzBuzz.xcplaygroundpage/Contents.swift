@@ -61,7 +61,7 @@ buildStringForIndicesUpTo(100, withFunctions: [{ $0 % 3 == 0 ? "Fizz" : ""}, { $
 /*:
 And here is a daft illustration of how the `buildStringForIndicesUpTo:limit:withFunctions` can be used in a different way, by examining a few scenarios if some members of the shinobi team were to get married. Interesting.
 */
-buildStringForIndicesUpTo(3, withFunctions: [
+buildStringForIndicesUpTo(6, withFunctions: [
     { $0 % 3 == 0 ? "Robert " : ""},
     { $0 % 3 == 1 ? "Sam " : ""},
     { $0 % 3 == 2 ? "Ryan " : ""},
