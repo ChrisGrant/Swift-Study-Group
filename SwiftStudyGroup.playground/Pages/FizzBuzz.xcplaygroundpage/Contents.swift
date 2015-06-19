@@ -16,8 +16,8 @@ func buildStringForIndicesUpTo(limit: Int, withFunctions: [(Int) -> String]) -> 
 
     var output = ""
     
-    for index in 0...limit - 1 {
-        output += "\(index + 1). "
+    for index in 1...limit {
+        output += "\(index). "
         for function in withFunctions {
             output += function(index)
         }
