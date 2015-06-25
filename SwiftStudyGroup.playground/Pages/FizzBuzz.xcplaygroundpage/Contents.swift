@@ -66,6 +66,7 @@ buildStringForIndicesUpTo(6, withFunctions: [
     { $0 % 3 == 1 ? "Sam " : ""},
     { $0 % 3 == 2 ? "Ryan " : ""},
     { $0 % 3 == 1 ? "Pilling" : ""},
+    { $0 % 3 == 2 ? "Pilling-" : ""},
     { $0 % 3 == 2 ? "Burnstone" : ""},
     { $0 % 3 == 0 ? "Grey" : ""}])
 //: [Next](@next)
